@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.carbon.scm.mapper.ScmSaleContractMapper">
+    
+    <resultMap type="ScmSaleContract" id="ScmSaleContractResult">
+        <result property="id"    column="id"    />
+        <result property="contractNo"    column="contract_no"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="workStaff"    column="work_staff"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="deliveryDate"    column="delivery_date"    />
+        <result property="address"    column="address"    />
+        <result property="contact"    column="contact"    />
+        <result property="contactTel"    column="contact_tel"    />
+        <result property="deliveryType"    column="delivery_type"    />
+        <result property="contractAmount"    column="contract_amount"    />
+        <result property="signDate"    column="sign_date"    />
+        <result property="applyUser"    column="apply_user"    />
+        <result property="applyTime"    column="apply_time"    />
+        <result property="applyStatus"    column="apply_status"    />
+        <result property="auditUser"    column="audit_user"    />
+        <result property="auditTime"    column="audit_time"    />
+        <result property="auditStatus"    column="audit_status"    />
+        <result property="auditComment"    column="audit_comment"    />
+        <result property="remark"    column="remark"    />
+        <result property="deliveryFlag"    column="delivery_flag"    />
+    </resultMap>
+
+    <sql id="selectScmSaleContractVo">
+        select id, contract_no, order_id, order_no, work_staff, customer_id, delivery_date, address, contact, contact_tel, delivery_type, contract_amount, sign_date, apply_user, apply_time, apply_status, audit_user, audit_time, audit_status, audit_comment, remark, delivery_flag from scm_sale_contract
+    </sql>
+
+    <select id="selectScmSaleContractList" parameterType="ScmSaleContract" resultMap="ScmSaleContractResult">
+        <include refid="selectScmSaleContractVo"/>
+        <where>  
+            <if test="contractNo != null  and contractNo != ''"> and contract_no = #{contractNo}</if>
+            <if test="orderId != null "> and order_id = #{orderId}</if>
+            <if test="orderNo != null  and orderNo != ''"> and order_no = #{orderNo}</if>
+            <if test="workStaff != null  and workStaff != ''"> and work_staff like concat('%', #{workStaff}, '%')</if>
+            <if test="customerId != null "> and customer_id = #{customerId}</if>
+            <if test="contact != null  and contact != ''"> and contact like concat('%', #{contact}, '%')</if>
+            <if test="contactTel != null  and contactTel != ''"> and contact_tel like concat('%', #{contactTel}, '%')</if>
+            <if test="applyUser != null  and applyUser != ''"> and apply_user = #{applyUser}</if>
+            <if test="applyStatus != null  and applyStatus != ''"> and apply_status = #{applyStatus}</if>
+            <if test="auditUser != null  and auditUser != ''"> and audit_user = #{auditUser}</if>
+            <if test="auditStatus != null  and auditStatus != ''"> and audit_status = #{auditStatus}</if>
+            <if test="auditComment != null  and auditComment != ''"> and audit_comment = #{auditComment}</if>
+            <if test="deliveryFlag != null  and deliveryFlag != ''"> and delivery_flag = #{deliveryFlag}</if>
+        </where>
+    </select>
+    
+    <select id="selectScmSaleContractById" parameterType="Long" resultMap="ScmSaleContractResult">
+        <include refid="selectScmSaleContractVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertScmSaleContract" parameterType="ScmSaleContract" useGeneratedKeys="true" keyProperty="id">
+        insert into scm_sale_contract
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="contractNo != null">contract_no,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="orderNo != null">order_no,</if>
+            <if test="workStaff != null">work_staff,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="deliveryDate != null">delivery_date,</if>
+            <if test="address != null">address,</if>
+            <if test="contact != null">contact,</if>
+            <if test="contactTel != null">contact_tel,</if>
+            <if test="deliveryType != null">delivery_type,</if>
+            <if test="contractAmount != null">contract_amount,</if>
+            <if test="signDate != null">sign_date,</if>
+            <if test="applyUser != null">apply_user,</if>
+            <if test="applyTime != null">apply_time,</if>
+            <if test="applyStatus != null">apply_status,</if>
+            <if test="auditUser != null">audit_user,</if>
+            <if test="auditTime != null">audit_time,</if>
+            <if test="auditStatus != null">audit_status,</if>
+            <if test="auditComment != null">audit_comment,</if>
+            <if test="remark != null">remark,</if>
+            <if test="deliveryFlag != null">delivery_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="contractNo != null">#{contractNo},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="orderNo != null">#{orderNo},</if>
+            <if test="workStaff != null">#{workStaff},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="deliveryDate != null">#{deliveryDate},</if>
+            <if test="address != null">#{address},</if>
+            <if test="contact != null">#{contact},</if>
+            <if test="contactTel != null">#{contactTel},</if>
+            <if test="deliveryType != null">#{deliveryType},</if>
+            <if test="contractAmount != null">#{contractAmount},</if>
+            <if test="signDate != null">#{signDate},</if>
+            <if test="applyUser != null">#{applyUser},</if>
+            <if test="applyTime != null">#{applyTime},</if>
+            <if test="applyStatus != null">#{applyStatus},</if>
+            <if test="auditUser != null">#{auditUser},</if>
+            <if test="auditTime != null">#{auditTime},</if>
+            <if test="auditStatus != null">#{auditStatus},</if>
+            <if test="auditComment != null">#{auditComment},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="deliveryFlag != null">#{deliveryFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateScmSaleContract" parameterType="ScmSaleContract">
+        update scm_sale_contract
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="contractNo != null">contract_no = #{contractNo},</if>
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="orderNo != null">order_no = #{orderNo},</if>
+            <if test="workStaff != null">work_staff = #{workStaff},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="deliveryDate != null">delivery_date = #{deliveryDate},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="contact != null">contact = #{contact},</if>
+            <if test="contactTel != null">contact_tel = #{contactTel},</if>
+            <if test="deliveryType != null">delivery_type = #{deliveryType},</if>
+            <if test="contractAmount != null">contract_amount = #{contractAmount},</if>
+            <if test="signDate != null">sign_date = #{signDate},</if>
+            <if test="applyUser != null">apply_user = #{applyUser},</if>
+            <if test="applyTime != null">apply_time = #{applyTime},</if>
+            <if test="applyStatus != null">apply_status = #{applyStatus},</if>
+            <if test="auditUser != null">audit_user = #{auditUser},</if>
+            <if test="auditTime != null">audit_time = #{auditTime},</if>
+            <if test="auditStatus != null">audit_status = #{auditStatus},</if>
+            <if test="auditComment != null">audit_comment = #{auditComment},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="deliveryFlag != null">delivery_flag = #{deliveryFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteScmSaleContractById" parameterType="Long">
+        delete from scm_sale_contract where id = #{id}
+    </delete>
+
+    <delete id="deleteScmSaleContractByIds" parameterType="String">
+        delete from scm_sale_contract where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.carbon.scm.mapper.ScmSaleOrderMapper">
+    
+    <resultMap type="ScmSaleOrder" id="ScmSaleOrderResult">
+        <result property="id"    column="id"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="orderAmount"    column="order_amount"    />
+        <result property="deliveryDate"    column="delivery_date"    />
+        <result property="applyUser"    column="apply_user"    />
+        <result property="applyTime"    column="apply_time"    />
+        <result property="applyStatus"    column="apply_status"    />
+        <result property="auditUser"    column="audit_user"    />
+        <result property="auditTime"    column="audit_time"    />
+        <result property="auditStatus"    column="audit_status"    />
+        <result property="auditComment"    column="audit_comment"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectScmSaleOrderVo">
+        select id, order_no, customer_id, order_amount, delivery_date, apply_user, apply_time, apply_status, audit_user, audit_time, audit_status, audit_comment, remark from scm_sale_order
+    </sql>
+
+    <select id="selectScmSaleOrderList" parameterType="ScmSaleOrder" resultMap="ScmSaleOrderResult">
+        <include refid="selectScmSaleOrderVo"/>
+        <where>  
+            <if test="orderNo != null  and orderNo != ''"> and order_no = #{orderNo}</if>
+            <if test="customerId != null "> and customer_id = #{customerId}</if>
+            <if test="applyUser != null  and applyUser != ''"> and apply_user = #{applyUser}</if>
+            <if test="applyStatus != null  and applyStatus != ''"> and apply_status = #{applyStatus}</if>
+            <if test="auditUser != null  and auditUser != ''"> and audit_user = #{auditUser}</if>
+            <if test="auditStatus != null  and auditStatus != ''"> and audit_status = #{auditStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectScmSaleOrderById" parameterType="Long" resultMap="ScmSaleOrderResult">
+        <include refid="selectScmSaleOrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertScmSaleOrder" parameterType="ScmSaleOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into scm_sale_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null">order_no,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="orderAmount != null">order_amount,</if>
+            <if test="deliveryDate != null">delivery_date,</if>
+            <if test="applyUser != null">apply_user,</if>
+            <if test="applyTime != null">apply_time,</if>
+            <if test="applyStatus != null">apply_status,</if>
+            <if test="auditUser != null">audit_user,</if>
+            <if test="auditTime != null">audit_time,</if>
+            <if test="auditStatus != null">audit_status,</if>
+            <if test="auditComment != null">audit_comment,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null">#{orderNo},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="orderAmount != null">#{orderAmount},</if>
+            <if test="deliveryDate != null">#{deliveryDate},</if>
+            <if test="applyUser != null">#{applyUser},</if>
+            <if test="applyTime != null">#{applyTime},</if>
+            <if test="applyStatus != null">#{applyStatus},</if>
+            <if test="auditUser != null">#{auditUser},</if>
+            <if test="auditTime != null">#{auditTime},</if>
+            <if test="auditStatus != null">#{auditStatus},</if>
+            <if test="auditComment != null">#{auditComment},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateScmSaleOrder" parameterType="ScmSaleOrder">
+        update scm_sale_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderNo != null">order_no = #{orderNo},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="orderAmount != null">order_amount = #{orderAmount},</if>
+            <if test="deliveryDate != null">delivery_date = #{deliveryDate},</if>
+            <if test="applyUser != null">apply_user = #{applyUser},</if>
+            <if test="applyTime != null">apply_time = #{applyTime},</if>
+            <if test="applyStatus != null">apply_status = #{applyStatus},</if>
+            <if test="auditUser != null">audit_user = #{auditUser},</if>
+            <if test="auditTime != null">audit_time = #{auditTime},</if>
+            <if test="auditStatus != null">audit_status = #{auditStatus},</if>
+            <if test="auditComment != null">audit_comment = #{auditComment},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteScmSaleOrderById" parameterType="Long">
+        delete from scm_sale_order where id = #{id}
+    </delete>
+
+    <delete id="deleteScmSaleOrderByIds" parameterType="String">
+        delete from scm_sale_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

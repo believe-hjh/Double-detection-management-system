@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.carbon.scm.mapper.ScmPurchaseArriveMapper">
+    
+    <resultMap type="ScmPurchaseArrive" id="ScmPurchaseArriveResult">
+        <result property="id"    column="id"    />
+        <result property="arriveNo"    column="arrive_no"    />
+        <result property="contractId"    column="contract_id"    />
+        <result property="contractNo"    column="contract_no"    />
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="arriveDate"    column="arrive_date"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectScmPurchaseArriveVo">
+        select id, arrive_no, contract_id, contract_no, supplier_id, arrive_date, status, remark, create_by, create_time from scm_purchase_arrive
+    </sql>
+
+    <select id="selectScmPurchaseArriveList" parameterType="ScmPurchaseArrive" resultMap="ScmPurchaseArriveResult">
+        <include refid="selectScmPurchaseArriveVo"/>
+        <where>  
+            <if test="arriveNo != null  and arriveNo != ''"> and arrive_no = #{arriveNo}</if>
+            <if test="supplierId != null "> and supplier_id like concat('%', #{supplierId}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectScmPurchaseArriveById" parameterType="Long" resultMap="ScmPurchaseArriveResult">
+        <include refid="selectScmPurchaseArriveVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertScmPurchaseArrive" parameterType="ScmPurchaseArrive" useGeneratedKeys="true" keyProperty="id">
+        insert into scm_purchase_arrive
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="arriveNo != null">arrive_no,</if>
+            <if test="contractId != null">contract_id,</if>
+            <if test="contractNo != null">contract_no,</if>
+            <if test="supplierId != null">supplier_id,</if>
+            <if test="arriveDate != null">arrive_date,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="arriveNo != null">#{arriveNo},</if>
+            <if test="contractId != null">#{contractId},</if>
+            <if test="contractNo != null">#{contractNo},</if>
+            <if test="supplierId != null">#{supplierId},</if>
+            <if test="arriveDate != null">#{arriveDate},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateScmPurchaseArrive" parameterType="ScmPurchaseArrive">
+        update scm_purchase_arrive
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="arriveNo != null">arrive_no = #{arriveNo},</if>
+            <if test="contractId != null">contract_id = #{contractId},</if>
+            <if test="contractNo != null">contract_no = #{contractNo},</if>
+            <if test="supplierId != null">supplier_id = #{supplierId},</if>
+            <if test="arriveDate != null">arrive_date = #{arriveDate},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteScmPurchaseArriveById" parameterType="Long">
+        delete from scm_purchase_arrive where id = #{id}
+    </delete>
+
+    <delete id="deleteScmPurchaseArriveByIds" parameterType="String">
+        delete from scm_purchase_arrive where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
