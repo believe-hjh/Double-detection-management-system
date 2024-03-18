@@ -15,7 +15,7 @@ spring:
                 enabled: false
                 url: 
                 username:
-                password:
+                password: 
             # 初始连接数
             initialSize: 5
             # 最小连接池数量
@@ -43,8 +43,8 @@ spring:
                 allow:
                 url-pattern: /druid/*
                 # 控制台管理用户名和密码
-                login-username:
-                login-password:
+                login-username: 
+                login-password: 
             filter:
                 stat:
                     enabled: true
